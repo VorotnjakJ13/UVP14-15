@@ -200,6 +200,17 @@ SHR reg, reg
 SHR reg, address
 SHR reg, constant
 ```
+## Primerjava: `CMP`
+
+Ukaz CMP odšteje od prvega argumenta vrednost drugega:
+```{asm}
+CMP reg1, reg2
+CMP reg1, constant
+```
+
+- Če sta vrednosti enaki, je rezultat 0 in se nastavi zastavica `Z`.
+- Če je prva vrednost strogo manjša od druge, pride do "negativne" vrednosti oz. pojavi se prenos (zastavica `C`).
+- Če je prva vrednost strogo večja od druge, se ne nastavi nobena od zastavic `C` oz. `Z`.
 
 ## Brezpogojni ali pogojni skoki
 

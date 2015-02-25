@@ -326,7 +326,20 @@ SHL reg, address
 SHL reg, constant
 SHR reg, reg
 SHR reg, address
-SHR reg, constant</pre></li>
+SHR reg, constant</pre>
+
+</article></slide><slide class=''><hgroup><h2>Primerjava: <code>CMP</code></h2></hgroup><article  id="primerjava-cmp"></li>
+</ul>
+
+<p>Ukaz CMP odšteje od prvega argumenta vrednost drugega:</p>
+
+<pre class = 'prettyprint lang-{asm}'>CMP reg1, reg2
+CMP reg1, constant</pre>
+
+<ul class = 'build'>
+<li>Če sta vrednosti enaki, je rezultat 0 in se nastavi zastavica <code>Z</code>.</li>
+<li>Če je prva vrednost strogo manjša od druge, pride do &quot;negativne&quot; vrednosti oz. pojavi se prenos (zastavica <code>C</code>).</li>
+<li>Če je prva vrednost strogo večja od druge, se ne nastavi nobena od zastavic <code>C</code> oz. <code>Z</code>.</li>
 </ul>
 
 </article></slide><slide class=''><hgroup><h2>Brezpogojni ali pogojni skoki</h2></hgroup><article  id="brezpogojni-ali-pogojni-skoki">
