@@ -208,3 +208,57 @@ output:
 
 - Meči kocko, izpisuj, štej mete, dokler ne vržeš prve šestice. Potem izpiši, koliko metov si potreboval. Namesto `break` uporabimo pogoj za zanko.
 
+## Tabeliraj kvadrate števil od 1 od 10.
+
+```{python}
+n = 10 # izpisujemo n vrstic 
+i = 0
+while i < n:
+    i += 1 
+    print(i,i**2)
+```
+
+## Preveri, ali je število praštevilo. 
+```{python}
+n = 23
+p = 2
+jeAliNi = True
+while p*p < n:
+    if n % p == 0:
+        jeAliNi = False
+        break
+    p += 1
+if(jeAliNi):
+    print(n, "je praštevilo")
+else:
+    print(n, "ni praštevilo")
+```
+
+## Izračun kvadratnega korena z iteracijo.
+
+Uporabimo iterativno formulo $x_{n+1} = (x_n + \frac{a}{x_n})$.
+```{python}
+a = 3 # računamo koren iz 3
+eps = 0.0000001
+x = 1
+y = (x + a/x)/2
+while abs(y - x) > eps:
+    x = y
+    y = (x + a/x)/2
+print(y)
+
+from math import *
+print(sqrt(a))
+```
+
+## Na zaslon nariši trikotnik
+```{python}
+i = 0
+while i < 5:
+    j = 0
+    while j < i + 1:
+        print("*", end="")
+        j += 1
+    print()
+    i += 1
+```

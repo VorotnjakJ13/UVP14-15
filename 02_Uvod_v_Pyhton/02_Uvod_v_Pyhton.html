@@ -306,7 +306,57 @@
 
 <ul class = 'build'>
 <li>Meči kocko, izpisuj, štej mete, dokler ne vržeš prve šestice. Potem izpiši, koliko metov si potreboval. Namesto <code>break</code> uporabimo pogoj za zanko.</li>
-</ul></article></slide>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Tabeliraj kvadrate števil od 1 od 10.</h2></hgroup><article  id="tabeliraj-kvadrate-stevil-od-1-od-10.">
+
+<pre class = 'prettyprint lang-{python}'>n = 10 # izpisujemo n vrstic 
+i = 0
+while i &lt; n:
+    i += 1 
+    print(i,i**2)</pre>
+
+</article></slide><slide class=''><hgroup><h2>Preveri, ali je število praštevilo.</h2></hgroup><article  id="preveri-ali-je-stevilo-prastevilo.">
+
+<pre class = 'prettyprint lang-{python}'>n = 23
+p = 2
+jeAliNi = True
+while p*p &lt; n:
+    if n % p == 0:
+        jeAliNi = False
+        break
+    p += 1
+if(jeAliNi):
+    print(n, &quot;je praštevilo&quot;)
+else:
+    print(n, &quot;ni praštevilo&quot;)</pre>
+
+</article></slide><slide class=''><hgroup><h2>Izračun kvadratnega korena z iteracijo.</h2></hgroup><article  id="izracun-kvadratnega-korena-z-iteracijo.">
+
+<p>Uporabimo iterativno formulo \(x_{n+1} = (x_n + \frac{a}{x_n})\).</p>
+
+<pre class = 'prettyprint lang-{python}'>a = 3 # računamo koren iz 3
+eps = 0.0000001
+x = 1
+y = (x + a/x)/2
+while abs(y - x) &gt; eps:
+    x = y
+    y = (x + a/x)/2
+print(y)
+
+from math import *
+print(sqrt(a))</pre>
+
+</article></slide><slide class=''><hgroup><h2>Na zaslon nariši trikotnik</h2></hgroup><article  id="na-zaslon-narisi-trikotnik">
+
+<pre class = 'prettyprint lang-{python}'>i = 0
+while i &lt; 5:
+    j = 0
+    while j &lt; i + 1:
+        print(&quot;*&quot;, end=&quot;&quot;)
+        j += 1
+    print()
+    i += 1</pre></article></slide>
 
 
   <slide class="backdrop"></slide>
