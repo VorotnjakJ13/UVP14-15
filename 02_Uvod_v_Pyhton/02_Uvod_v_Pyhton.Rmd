@@ -1,0 +1,210 @@
+---
+title: "02 Uvod v Python"
+output: 
+  ioslides_presentation:
+    incremental: yes
+---
+
+## Python
+- Splošno namenski visoko nivojski programski jezik.
+- Poudarek na berljivosti in preglednosti.
+- Podpira različne stile programiranja: *objektno-orientirano*, *imperativno* in *funkcijsko*.
+- Guido van Rossum, konec 1980-ih let.
+- Odprta koda.
+- Python 2.0 leta 2000. Python 2.7 se uporablja v veliko produkcijskih sistemih.
+- Python 3.0 leta 2008. Danes: Python 3.4.x
+- Vključuje: dinamično tipiziranje, avtomatično čiščenje spomina (ang. garbage collector), veliko znanstvenih knjižnic, ...
+
+## Namestitev in okolje IDLE
+
+- Osnovno delovno okolje IDLE je že vključeno v namestitev.
+- [Namestitev Pythona 3.1 v Windows XP](http://www.nauk.si/materials/87/out/index.html#state=2)
+- [Namestitev in uporaba okolja IDLE](http://www.nauk.si/materials/637/out/index.html#state=2)
+- <font size=2px>Povezave na naslovih vodijo do animacij.</font>
+
+## Osnovni tipi/razredi in objekti
+- Vsak podatek v Pythonu je objekt.
+- *Objekt* združuje podatke (atribute) in operacije (metode) nad njim.
+- Tip objekta določa *razred* objekta (definicija/tip objekta).
+- Osnovni tipi:
+    - `int` - celo število (`1`, `1023`).
+    - `float` - realno število (`2.1`, `1.1e10`, `1e-3`)
+    - `bool` - logična vrednost (`True` ali `False`).
+    - `str` - niz - zaporedje znakov v enojnih ali dvojnih narekovajih (`"niz niz"`, `'niz'`, `"'niz'"`, `'niz\nniz'`).
+
+## [Osnovni tipi](http://www.nauk.si/materials/636/out/index.html#state=2)
+
+<img src="slike/tipi.png" width=300px>
+
+## Osnovni tipi in pretvorbe (`int`)
+
+<img src="slike/int_pretvorbe.png" width=600px>
+
+## Osnovni tipi in pretvorbe (`float`)
+
+<img src="slike/float_pretvorbe.png" width=600px>
+
+## Osnovni tipi in pretvorbe (`bool`)
+
+<img src="slike/bool_pretvorbe.png" width=220px>
+
+## Osnovni tipi in pretvorbe (`str`)
+
+<img src="slike/str_pretvorbe.png" width=250px>
+
+## [Objekti, metode, notranje spremenljivke (atributi) in lastnosti](http://www.nauk.si/materials/638/out/index.html#state=2)  
+
+<img src="slike/objekti.png" width=600px>
+
+## [Cela števila (`int`) in aritmetične operacije](http://www.nauk.si/materials/641/out/index.html#state=2)
+
+- Osnovni aritmetični operatorji:
+    - `+` (vsota)
+    - `-` (razlika)
+    - `*` (produkt)
+    - `**` (potenca)
+    - `/` (količnik, v realnih številih)
+    - `//` (celi del količnika)
+    - `%` (ostanek pri celoštevilskem deljenju)
+
+## Cela števila (`int`) in aritmetične operacije
+
+<img src="slike/int_aritmetika_1.png" width=200px>
+
+## Cela števila (`int`) in aritmetične operacije
+
+<img src="slike/int_aritmetika_2.png" width=300px>
+
+## [Realna števila (`float`)](http://www.nauk.si/materials/731/out/index.html#state=2)
+
+<img src="slike/float_1.png" height=500px>
+
+## Realna števila (`float`)
+
+<img src="slike/float_2.png" height=500px>
+
+
+## [Kompleksna števila](http://www.nauk.si/materials/696/out/index.html#state=2)
+
+<img src="slike/kompleksna_1.png" height=500px>
+
+## [Nizi](http://www.nauk.si/materials/724/out/index.html#state=2)
+<img src="slike/niz_1.png" height=500px>
+
+## Nizi
+
+<img src="slike/niz_2.png" height=500px>
+
+## [Logične vrednosti in logični operatorji](http://www.nauk.si/materials/705/out/index.html#state=2)
+
+<img src="slike/bool_1.png" height=500px>
+
+## Logične vrednosti in logični operatorji
+
+<img src="slike/bool_2.png" height=300px>
+
+
+## [Sestavljeni logični izrazi](http://www.nauk.si/materials/706/out/index.html#state=1)
+
+<img src="slike/logic_1.png" height=500px>
+
+## Sestavljeni logični izrazi
+
+<img src="slike/logic_2.png" height=350px>
+
+## [Spremenljivke](http://www.nauk.si/materials/640/out/index.html#state=2)
+
+<img src="slike/spremenljivke_1.png" height=500px>
+
+## Spremenljivke
+
+<img src="slike/spremenljivke_2.png" height=500px>
+
+## [Moduli in modul `math`](http://www.nauk.si/materials/697/out/index.html#state=1)
+
+<img src="slike/math_1.png" height=180px>
+
+<img src="slike/math_2.png" height=250px>
+
+## Modul `math`
+
+<img src="slike/math_3.png" height=500px>
+
+## [Primer: Določanje števk števila](http://www.nauk.si/materials/692/out/index.html#state=2)
+
+<img src="slike/dolocanje_stevk.png" height=500px>
+
+## [Primer: Sestavljanje števila iz števk)](http://www.nauk.si/materials/694/out/index.html#state=2)
+
+<img src="slike/sestavi_stevilo.png" height=300px>
+
+## [Primer: Pretvorba yardov v metre, decimetre...](http://www.nauk.si/materials/695/out/index.html#state=2)
+
+<img src="slike/yardi.png" height=400px>
+
+## [Izpisovanje na zaslon](http://www.nauk.si/materials/704/out/index.html#state=2)
+
+<img src="slike/print_1.png" height=180px>
+
+<img src="slike/print_2.png" height=250px>
+
+## Izpisovanje na zaslon
+
+<img src="slike/print_3.png" height=200px>
+
+<img src="slike/print_4.png" height=160px>
+
+## [Interaktivno branje od uporabnika](http://www.nauk.si/materials/729/out/index.html#state=2)
+
+<img src="slike/input.png" height=200px>
+
+## [Pogojni stavek `if`](http://www.nauk.si/materials/707/out/index.html#state=2)
+
+<img src="slike/if_1.png" height=100px>
+  
+<img src="slike/if_2.png" height=150px>
+
+<img src="slike/if_3.png" height=200px>
+
+## [Pogojni izraz](http://www.nauk.si/materials/711/out/index.html#state=2)
+
+<img src="slike/pogojni_izraz.png" height=500px>
+
+## Na katerem intervalu je število
+- [1.del](http://www.nauk.si/materials/710/out/index.html#state=1)
+-
+<img src="slike/interval_stevila_1.png" height=150px>
+
+- [2.del](http://www.nauk.si/materials/709/out/index.html#state=1)
+-
+<img src="slike/interval_stevila_2.png" height=150px>
+
+## [Primer: prestopno leto](http://www.nauk.si/materials/708/out/index.html#state=1)
+
+<img src="slike/prestopno_leto.png" height=120px>
+
+## [Zanka `while`](http://www.nauk.si/materials/725/out/index.html#state=2)
+
+
+<img src="slike/while_1.png" height=140px>
+
+- Meči kocko in izpisuj.
+
+## Zanka `while`
+
+<img src="slike/while_2.png" height=200px>
+
+- Meči kocko, izpisuj, prekini zanko, ko vržeš prvo šestico.
+
+## Zanka `while`
+
+<img src="slike/while_3.png" height=300px>
+
+- Meči kocko, izpisuj, štej mete, dokler ne vržeš prve šestice. Potem izpiši, koliko metov si potreboval.
+
+## Zanka `while`
+
+<img src="slike/while_4.png" height=300px>
+
+- Meči kocko, izpisuj, štej mete, dokler ne vržeš prve šestice. Potem izpiši, koliko metov si potreboval. Namesto `break` uporabimo pogoj za zanko.
+
