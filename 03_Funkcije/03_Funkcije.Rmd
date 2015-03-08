@@ -1,0 +1,631 @@
+---
+title: "03 Funkcije"
+output: 
+  ioslides_presentation:
+    incremental: yes
+---
+
+## Funkcije
+
+- Funkcije so parametrizirani deli programa, ki jih lahko večkrat uporabimo.
+- Funkcije so parametrizirane z nič ali več argumenti (oz. parametri).
+- Funkcije uporabimo tako, da jih *kličemo*.
+
+## Primer: ali je neko število praštevilo?
+
+- Zadnjič smo napisali naslednji program:
+-
+```{python}
+n = 23
+p = 2
+jeAliNi = True
+while p*p < n:
+        if n % p == 0:
+            jeAliNi = False
+            break
+        p += 1
+if(jeAliNi):
+        print(n, "je praštevilo")
+else:
+        print(n, "ni praštevilo")
+```
+- Za dano število `n` želimo z enim klicem funkcije ugotoviti, ali je praštevilo ali ne.
+
+## Primer: ali je neko število praštevilo? {.smaller}
+
+- Število `n` bo "parameter".
+- Funkcijo poimenujemo `je_prastevilo(n)`.
+-
+```{python}
+def je_prastevilo(n):
+        p = 2
+        jeAliNi = True
+        while p*p < n:
+            if n % p == 0:
+                jeAliNi = False
+                break
+            p += 1
+        return jeAliNi
+```
+- Z ukazom `return` povemo, kaj funkcija vrne.
+-
+```{python}
+>>> prastevilo(23)
+True
+```
+- Rezultat lahko shranimo v spremenljivko ali uporabimo v večjem izrazu.
+```{python}
+>>> a = je_prastevilo(23)
+>>> if je_prastevilo(12): print("12 pa že ni Praštevilo!!!")
+```
+
+
+## Funkcije, argumenti in parametri {.smaller}
+
+- Definirajmo funkcijo `odstej(a, b)`, ki izračuna razliko `a - b`.
+```{python}
+def odstej(a, b): 
+        return a - b
+```
+- Funkcija ima lahko več poimenovanih *argumentov*, na katere se skličemo v kodi funkcije. Argumenti so določeni s položajem v vrstnem redu definicije.
+
+- Klici in vračanje
+-
+```{python}
+>>> odstej(3, 2)        # vrne 1
+```
+-
+```{python}
+>>> odstej(a=3, b=2)    # vrne 1 (parametrično podajanje)
+```
+-
+```{python}
+>>> odstej(3, b=2)      # vrne 1 (navadno in parametrično podajanje)
+```
+-
+```{python}
+>>> odstej(b=2, a=3)    # vrne 1
+```
+-
+```{python}
+>>> odstej(2, 3)        # vrne -1
+```
+
+
+## Funkcije, argumenti in parametri {.smaller}
+
+- Funkciji lahko podamo neobvezne argumente, ki jih imenujemo *parametri*. 
+- Parametrom moramo podati privzeto vrednost.
+- 
+```{python}
+def odstej2(a, b=2): 
+        return a - b
+```
+-
+```{python}
+odstej2(3)         # vrne 1
+```
+-
+```{python}
+odstej2(3, 2)      # vrne 1 (če parametrov ne poimenujemo, velja vrstni red)
+```
+-
+```{python}
+odstej2(2, 3)      # vrne -1 
+```
+-
+```{python}
+odstej2(3, b=2)    # vrne 1
+```
+-
+```{python}
+odstej2(b=2, a=3)  # vrne 1 (poimenovani lahko nastopajo v polj. vrstnem redu).
+```
+
+## Funkcije in lokalne spremenljivke
+
+- 
+```{python}
+>>> a = 5
+>>> def funkcija():
+            print(a)
+>>> funkcija()  # Funkcija ne vrača, le izpiše.
+5
+```
+- Funkcija prepozna spremenljivke definirane v zunanjem okolju (*globalne* spremenljivke).
+
+## Funkcije in lokalne spremenljivke {.smaller}
+
+-
+```{python}
+>>> a = 1
+>>> def funkcija():
+            a = 5	
+>>> funkcija()   # funkcija ne vrača nič.
+>>> a
+1
+```
+- Spremenljivka `a`, v katero pišemo v funkciji, je *lokalna* spremenljivka funkcije in ni enaka globalni spremenljivki `a`.
+-
+```{python}
+>>> a = 1
+>>> def funkcija():
+            global a
+            a = 5  
+>>> funkcija()
+>>> a
+5
+```
+- V splošnem: prvo pisanje v spremenljivko z novim imenom znotraj funkcije ustvari lokalno spremenljivko z danim imenom. 
+- Če pa želimo uporabiti globalno spremenljivko z nekim imenom, jo moramo najprej deklarirati s pomočjo ukaza `global`.
+
+## Funkcije in lokalne spremenljivke {.smaller}
+
+- Argumenti funkcij se obnašajo kot lokalne spremenljivke
+```{python}
+>>> a = 1
+>>> def funkcija(a):
+            a = 5  
+>>> funkcija(a)
+>>> a
+1
+```
+- Prvi `a` je globalna spremenljivka.
+- Argument `a` v definiciji funkcije (poimenovan argument) predstavlja lokalno spremenljivko `a`.
+- Pri klicu funkcije kot argument podamo globalni `a`. Ta se predi lokalnemu `a`.
+- Globalni `a` ostane po klicu funkcije nespremenjen.
+- POZOR: To ni nujno res, če podamo kot argument/parameter spremenljiv (ang. mutable) podatkovni tip.
+- Tipi `int`, `float`, `bool` in `str` so vsi nespremenljivi (ang. immutable) podatkovni tipi/razredi.
+
+## Funkcije in vračanje
+
+- Funkcija vedno vrne nekaj in to lahko priredimo v neko spremenljivko.
+- Če funkcija nima eksplicitnega vračanja (ukaz `return`), funkcija vrne `None`.
+- `None` je splošnega tipa `NoneType` (prazen objekt).
+- Torej, če pozabimo `return`, funkcija vrne `None`.
+-
+```{python}
+>>> def funkcija(a):
+            a = 5  
+>>> x = funkcija(a)
+>>> print(x)
+None
+```
+
+## Vračanje in izpisovanje
+
+- Funkcija izpiše `a`, ampak ga ne vrne.
+-
+```{python}
+>>> def funkcija(a):
+            print(a)  
+>>> x = funkcija(5)
+5
+>>> print(x)
+None
+```
+- Funkcija vrne `a`.
+-
+```{python}
+>>> def funkcija(a):
+            return a  
+>>> x = funkcija(5)
+>>> print(x)
+5
+```
+
+
+## Funkcije in dokumentacijski niz {.smaller}
+
+- Takoj po definiciji glave funkcije lahko (zamaknjeno z enim zamikom) podamo dokumentacijski niz.
+- 
+```{python}
+def je_prastevilo(n):
+        """Preveri, če je dano število n praštevilo."""   # dokumentacijski niz.
+        p = 2
+        jeAliNi = True
+        while p*p < n:
+            if n % p == 0:
+                jeAliNi = False
+                break
+            p += 1
+        return jeAliNi
+```
+- Če dokumentacijski niz zapišemo v trojnih navednicah, ga lahko pišemo čez več vrstic.
+
+## Primer: praštevila na intervalu
+
+- Uporabimo funkcijo `je_prastevilo` da izpišemo vsa praštevila na intervalu od `[a, b]`.
+-
+```{python}
+def prastevila_na_intervalu(a, b):
+        """Izpise prastevila na intervalu [a, b]."""
+        n = a
+        while n <= b:
+            if je_prastevilo(n):
+                print(n)
+            n += 1
+```
+- Kaj vrne ta funkcija?
+- 
+```{python}
+>>> prastevila_na_intervalu(10, 20)
+11
+13
+17
+19
+```
+
+## Pari, n-terke
+
+- Par (n-terka, `tuple`) je prav tako nespremenljiv objekt v Pythonu.
+- 
+```{python}
+>>> par = (1, 2)
+>>> type(par)
+<class 'tuple'>
+>>> par
+(1, 2)
+```
+- Razred `tuple` lahko uporabimo za poljubno dolge n-terke.
+- Zadostuje naštevanje in ločevanje z vejico (oklepaji niso nujni).
+-
+```{python}
+>>> trojica = 1,2,3
+>>> trojica
+(1, 2, 3)
+```
+
+## Pari, n-terke {.smaller}
+
+- N-terke lahko vsebujejo različne tipe.
+-
+```{python}
+>>> par = (1, "niz")
+>>> par
+(1, 'niz')
+```
+- Lahko jih "odpakiramo" v spremenljivke.
+-
+```{python}
+>>> par = (1, 2)
+>>> x, y = par
+>>> x
+1
+>>> y
+2
+```
+
+- S pomočjo n-terk lahko naredimo hkratne prireditve, npr. zamenjava dveh spremenljivk.
+-
+```{python}
+>>> x, y = y, x
+>>> x
+2
+>>> y
+1
+```
+
+## Primer: ali je točka v pravokotniku?
+
+- Točko v ravnini podamo z parom `(x, y)`.
+- Pravokotnik v ravnini, ki ima stranice vzporedne s koordinatnima osema podamo s koordinatama diagonalnih izhodišč.
+- Vsak tak pravokotnik se vedno da opisati z minimalnim (spodnjim levim) in maksimalnim (zgornjim desnim) ogliščem.
+- Točka je vsebovana v pravokotniku natanko tedaj, ko je med minimalno in maksimalno koordinato po obeh oseh.
+
+## Primer: ali je točka v pravokotniku?
+
+- 
+```{python}
+def tocka_v_pravokotniku(t, p1, p2):
+        """Preveri, če je točka t vsebovana v pravokotniku vzporednem s
+koordinatnima osema definiranim z vogali p1 in p2."""
+        x,y = t     # odpakiranje točk
+        x1,y1 = p1
+        x2,y2 = p2
+            # izračun min in max koordinat (najprej pogojni izraz ...)
+        x1,x2 = (x1 if x1 < x2 else x2, x1 if x1 > x2 else x2)
+        y1,y2 = min(y1, y2), max(y1, y2) # ... pa še alternativen način
+            # preverjanje pogoja
+        return x1 <= x <= x2 and y1 <= x <= y2
+```
+
+## Primer: izris kara {.smaller}
+
+Kako narišemo (izpišemo) tak karo s stranico 5?
+
+```
+     *
+    ***
+   *****
+  *******
+ *********
+  *******
+   *****
+    ***
+     *
+```
+- Zelo preprosto: najprej izrišemo zgornji del potem pa spodnji.
+- 
+```{python}
+def narisi_karo(n):
+        narisi_zgornji_del(n)
+        narisi_spodnji_del(n)
+```
+- Razmišljamo po "šefovsko" (oz. "top-down") - naj se nekdo drug ukvarja z detajli :)
+- Ampak nekdo mora napisati funkciji `narisi_zgornji_del` in `narisi_zgornji_del`...
+
+## Primer: izris kara {.smaller}
+
+- Kako narisati zgornji del?
+- V zgornjem delu imamo `n` vrstic. Oštevilčimo jih kot `0`, `1`, ..., `n-1`.
+- Naj se nekdo drugi ukvarja s tem kako se že izriše `i`-to vrstico (spet napad "šefovstva" :).
+- Ta "nekdo drugi" mora le vedeti, da mora izrisati `i`-to vrstico v karu velikosti `n`
+- 
+```{python}
+def narisi_zgornji_del(n):
+        i = 0
+        while i < n:
+            i_ta_vrstica(n, i)
+            i += 1
+```
+- Zelo podobno lahko izrišemo spodnji del kara. Ta ima vrstice `n-2`, `n-3`, ..., `1`, `0`.
+- 
+```{python}
+def narisi_spodnji_del(n):
+        i = n - 2
+        while i >= 0:
+            i_ta_vrstica(n, i)
+            i -= 1
+```
+
+## Primer: izris kara {.smaller}
+
+- Zdaj moramo samo še premisliti, kako izrisati `i`-to vrstico v karu velikosti `n`.
+- Premislimo:
+    - Vrstica `0` ima `n-1` presledkov in `1` zvezdico.
+    - Vrstica `1` ima `n-2` presledkov in `3` zvezdice.
+    - ...
+    - Vrstica `i` ima `n - i - 1` presledkov in `2*i + 1` zvezdic.
+-
+```{python}
+def i_ta_vrstica(n, i):
+        j = 0   # izpis presledkov
+        while j < n - i - 1:
+            print(" ", sep="", end="")
+            j += 1
+        j = 0   # izpis zvezdic
+        while j < 2*i + 1:
+            print("*", sep="", end="")
+            j += 1
+        print()  # skok v novo vrstico na koncu 
+``` 
+
+## Primer: izris kara - vse skupaj {.smaller}
+
+```{python}
+def narisi_karo(n):
+    narisi_zgornji_del(n)
+    narisi_spodnji_del(n)
+
+def narisi_zgornji_del(n):
+    i = 0
+    while i < n:
+        i_ta_vrstica(n, i)
+        i += 1
+
+def narisi_spodnji_del(n):
+    i = n - 2
+    while i >= 0:
+        i_ta_vrstica(n, i)
+        i -= 1
+
+def i_ta_vrstica(n, i):
+    j = 0   # izpis presledkov
+    while j < n - i - 1:
+        print(" ", sep="", end="")
+        j += 1
+    j = 0   # izpis zvezdic
+    while j < 2*i + 1:
+        print("*", sep="", end="")
+        j += 1
+    print()  # skok v novo vrstico na koncu
+```
+
+## Primer: izris kara - nauk
+
+- Programiramo tako kot bi bili "manager".
+- Velik problem razbijamo na manjše in manjše, dokler jih ne znamo dokončno rešiti.
+- V resnici na vsakem koraku "drobljenja" rešujemo neke podprobleme ob predpostavkah, da nam bo nekdo pravilno rešil manjše podprobleme.
+- Temu se reče *strukturirano programiranje*.
+- PRAVILO dobre prakse: Zaradi boljše preglednosti naj ima vsaka funkcija kvečjemu 20 vrstic. Sicer raje rešujemo podprobleme v pod-funkcijah. 
+
+## Primer: izris kara - poenostavitev {.smaller}
+
+- Python podpira "množenje" in "seštevanje" nad nizi.
+- Vemo: vrstica `i` ima `n - i - 1` presledkov in `2*i + 1` zvezdic.
+- Niz za `i`-to vrstico lahko sestavimo takole.
+```{python}
+(n - i - 1)*" " + (2*i + 1)*"*"
+```
+- Kodo poenostavimo takole:
+```{python}
+def narisi_karo2(n):
+        i = 0
+        while i < n:
+            print((n - i - 1)*" " + (2*i + 1)*"*")
+            i += 1
+
+        i = n - 2
+        while i >= 0:
+            print((n - i - 1)*" " + (2*i + 1)*"*")
+            i -= 1
+```
+
+## Primer: izris kara - vračanje namesto izrisa {.smaller}
+
+- Namesto da sproti izrisujemo, lahko sestavljamo niz in ga na koncu vrnemo.
+- Vrnjen niz lahko izpišemo ali uporabimo kje drugje.
+- 
+```{python}
+def narisi_karo3(n):
+        s = ""
+        i = 0
+        while i < n:
+            s += (n - i - 1)*" " + (2*i + 1)*"*" + "\n"
+            i += 1
+
+        i = n - 2
+        while i >= 0:
+            s += (n - i - 1)*" " + (2*i + 1)*"*" + "\n"
+            i -= 1
+        return s
+```
+-
+```{python}
+print(narisi_karo3(5))
+```
+
+## Lep izpis kvadratne funkcije {.smaller}
+
+- Kvadratna funkcija je podana s tremi koeficienti: `a`, `b` in `c` v obliki: `ax**2 + bx + c`.
+- Želimo jo lepo izpisati, tako kot v spodnjih primerih
+    - `3x**2 + 2x + 1` 
+    - `-2x**2 - 3x`
+    - `x - 1`
+    - `-4`
+    - `4x - 5`
+    -`x**2 - x + 1`
+- Čimbolj natančno izluščimo pravila:
+    - členi nastopajo po vrstnem redu `a`, `b`, `c`,
+    - členov z ničelnimi koeficienti ni,
+    - prvi neničelni koeficient obdrži morebitni negativni predznak pred seboj,
+    - predznak naslednjih neničelnih koeficientov je "skrit" v vsoti ali razliki med členi.
+    - če je člen enak `1` ali `-1` se ne izpiše.
+
+## Lep izpis kvadratne funkcije {.smaller}
+
+Pristop:
+
+- izpisujemo člene po vrsti
+- pogoji po katerih se odločamo:
+    - ali je člen prvi neničelen: potem nima veznega operatorja pred njim;
+    - sicer, ali je ničelen, 1, -1, pozitiven (>1) ali negativen (<-1): potem ustrezen izpis v skladu z veznim operatorjem pred njim.
+- Zelo pomembno je, da zelo dobro premislimo, ker je veliko možnosti. 
+- Če ne premislimo dobro, se bom zapletli in potem ko bomo odpravljali napake bomo zašli v sfero "umetniškega programiranja".
+- V programu je načelom 6 možnosti po katerih se odločamo z DA ali NE za vsakega izmed treh koeficientov. To v najhujšem primeru vodi v $3 \times 2^6 = 96$ možnosti, kar je ogromno.
+- Zato moramo zelo dobro premisliti, kako bomo "zagrabili" ta program.
+- Ko enkrat napišemo program, moramo čutiti, da jasno razumemo zakaj dela.
+- Če smo zaključili program in ta nekako dela, ker smo nekaj "skvačkali, ampak v bistvu ne vemo zakaj točno dela, je to zelo slabo.
+
+## Lep izpis kvadratne funkcije {.smaller}
+
+```{python}
+def kvadratna_izpis(a, b, c):
+    """Vrne niz z izpisom kvadratne funkcije na lep način"""
+    prvi = a != 0                  
+    s = ""       
+    
+    if prvi:
+        if a == 1: s += "x**2"
+        elif a == -1: s+= "-x**2"
+        else: s+= str(a) + "x**2"   # predznak iz izpisa števila
+    
+    prvi = a == 0 and b != 0
+    if prvi:
+        if b == 1: s += "x"
+        elif b == -1: s += "-x"
+        else: s += str(b) + "x"     # predznak iz izpisa števila
+    else:
+        if b == 0: pass
+        elif b > 0:
+            if b == 1: s += " + x"
+            else: s += " + " + str(b) + "x"
+        else: # b < 0
+            if b == -1: s += " - x"
+            else: s += " - " + str(abs(b)) + "x"
+```
+
+## Lep izpis kvadratne funkcije {.smaller}
+
+```{python}
+    prvi = a == 0 and b == 0
+    if prvi:                                
+        s += str(c)
+    else:
+        if c > 0: s += " + " + str(abs(c))
+        elif c < 0: s += " - " + str(abs(c))
+    return s
+```
+- Osnovne ideje:
+    - vsak člen obdelamo posebej in po vrsti,
+    - vedno vemo ali je prvi ali ne,
+    - če ni prvi, ima vezni operator,
+    - glede na ostale možnosti izpisa koeficientov, si delo čimbolj poenostavimo.
+- Na ta način uspešno uženemo kompleksnost odločanja.
+- Da pridemo do pregledne rešitve, je treba kar krepko razmišljati.
+
+## Reševanje kvadratne enačbe {.smaller}
+
+```{python}
+from kvadratna_izpis import *
+
+def kvadratna_enacba(a, b, c):
+    """Izpiše na zaslon analizo rešitev kvadratne enačbe a*x**2 + b*x + c.
+Funkcija ne vrača ničesar."""
+    print("Enačba: ", kvadratna_izpis(a,b,c), "= 0")
+    if a == 0:
+        print("Enačba je linearna.")
+        if b == 0:
+            if c == 0:
+                print("Rešitev je cela realna os.")
+            else:
+                print("Rešitev je prazna množica.")
+        else:
+            print("Rešitev linearne enačbe je x = ",-c/b)
+    else:
+        D = b**2 - 4*a*c
+        if D < 0:
+            print("Konjugirano kompleksna korena.")
+        elif D > 0:
+            print("Realna korena.")
+        else:
+            print("Dvojni realni koren.")
+```
+
+## Presečišče dveh premic {.smaller}
+
+- Premico podamo s smernim koeficientom in odmikom.
+- 
+```{python}
+def premici(k1, n1, k2, n2):
+        """Vrne eno od presečišč premic y = k1*x + n1 in y = k2*x + n2 ali
+None."""
+        if k1 == k2:
+            if n1 == n2: # rešitev je vsak x
+                return 0, n1 # presečišče v x = 0.
+            return None # ni rešitve
+        else:
+            x = (n2 - n1)/(k1 - k2)
+            y = k1*x + n1
+            return x, y
+```
+- Pazimo: OPERATOR '==' MORAMO ZARADI ZAOKROŽITVENIH NAPAK UPORABLJATI SAMO V IZJEMNIH PRIMERIH, KO TOČNO VEMO, KAJ POČNEMO.
+- Sicer je varno, da privzamemo, da je uporaba operatorja `==` na tipu `float` "prepovedana".
+- Namesto tega si vedno izberemo toleranco `epsilon`, ki nam določa kaj je enako.
+- Če imamo podano toleranco `epsilon`, potem enakost `a == b` preverjamo kot `abs(a - b) < epsilon`.
+
+## Iterativna metoda za izračun kvadratnega korena {.smaller}
+
+- Po [Newtonovi metodi](http://en.wikipedia.org/wiki/Methods_of_computing_square_roots) lahko z iteracijskim postopkom izračunamo kvadratni koren.
+- Iteracijska metoda: $x_{n + 1} = x_n - \frac{1}{2}(x_n + \frac{a}{x_n})$.
+- Na začetku je lahko vzamemo za približek $x_0$ katero koli pozitivno število.
+- Iteracijo nehamo, ko sta zaporedna približka dovolj blizu (predpisan `eps`).
+```{python}
+def koren(a, eps = 0.0000001):
+        x = 1  # začetni približek
+        y = (x + a/x)/2  # prva iteracija
+        while abs(y - x) > eps:
+            x = y
+            y = (x + a/x)/2
+```
