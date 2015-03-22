@@ -98,7 +98,7 @@
 <li><pre class = 'prettyprint lang-{python}'>n = 23
 p = 2
 jeAliNi = True
-while p*p &lt; n:
+while p*p &lt;= n:
     if n % p == 0:
         jeAliNi = False
         break
@@ -118,14 +118,14 @@ else:
 <li><pre class = 'prettyprint lang-{python}'>def je_prastevilo(n):
     p = 2
     jeAliNi = True
-    while p*p &lt; n:
+    while p*p &lt;= n:
         if n % p == 0:
             jeAliNi = False
             break
         p += 1
     return jeAliNi</pre></li>
 <li>Z ukazom <code>return</code> povemo, kaj funkcija vrne.</li>
-<li><pre class = 'prettyprint lang-{python}'>&gt;&gt;&gt; prastevilo(23)
+<li><pre class = 'prettyprint lang-{python}'>&gt;&gt;&gt; je_prastevilo(23)
 True</pre></li>
 <li><p>Rezultat lahko shranimo v spremenljivko ali uporabimo v večjem izrazu.</p>
 
@@ -254,7 +254,7 @@ None</pre></li>
     &quot;&quot;&quot;Preveri, če je dano število n praštevilo.&quot;&quot;&quot;   # dokumentacijski niz.
     p = 2
     jeAliNi = True
-    while p*p &lt; n:
+    while p*p &lt;= n:
         if n % p == 0:
             jeAliNi = False
             break

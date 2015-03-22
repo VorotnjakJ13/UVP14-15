@@ -1,6 +1,8 @@
 ---
 title: "Uvod in zbirnik"
 output:
+  beamer_presentation:
+    incremental: yes
   ioslides_presentation:
     incremental: yes
 ---
@@ -221,7 +223,7 @@ JMP address
 ```
 -
 ### Pogojni skoki
-<img src="viri/JMP.png" width=70%>
+<img src="viri/JMP.png" width=70%/>
 
 ## Funkcije
 

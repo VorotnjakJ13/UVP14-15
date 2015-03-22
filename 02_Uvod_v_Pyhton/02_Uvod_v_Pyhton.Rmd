@@ -234,6 +234,7 @@ else:
     print(n, "ni praštevilo")
 ```
 
+
 ## Izračun kvadratnega korena z iteracijo.
 
 Uporabimo iterativno formulo $x_{n+1} = (x_n + \frac{a}{x_n})$.

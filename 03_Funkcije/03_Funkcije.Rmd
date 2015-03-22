@@ -19,7 +19,7 @@ output:
 n = 23
 p = 2
 jeAliNi = True
-while p*p < n:
+while p*p <= n:
         if n % p == 0:
             jeAliNi = False
             break
@@ -40,7 +40,7 @@ else:
 def je_prastevilo(n):
         p = 2
         jeAliNi = True
-        while p*p < n:
+        while p*p <= n:
             if n % p == 0:
                 jeAliNi = False
                 break
@@ -50,7 +50,7 @@ def je_prastevilo(n):
 - Z ukazom `return` povemo, kaj funkcija vrne.
 -
 ```{python}
->>> prastevilo(23)
+>>> je_prastevilo(23)
 True
 ```
 - Rezultat lahko shranimo v spremenljivko ali uporabimo v večjem izrazu.
@@ -224,7 +224,7 @@ def je_prastevilo(n):
         """Preveri, če je dano število n praštevilo."""   # dokumentacijski niz.
         p = 2
         jeAliNi = True
-        while p*p < n:
+        while p*p <= n:
             if n % p == 0:
                 jeAliNi = False
                 break
