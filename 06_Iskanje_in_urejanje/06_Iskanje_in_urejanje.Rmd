@@ -1,0 +1,399 @@
+---
+title: "Časovna zahtevnost, iskanje in urejanje"
+output: 
+  ioslides_presentation:
+    incremental: yes
+---
+
+## Iskanje elementa v seznamu {.smaller}
+
+- Algoritem: postopek, s katerim v končno korakih rešimo nek problem.
+- Dan je seznam $n$ celih števil. Iščemo, ali je neko število element seznama. 
+- Kako hiter algoritem lahko napišemo?
+    - Pregledati moramo vse elemente, da se prepričamo (ne vemo nič o seznamu).
+    - Pregled nas stane isto časa za vsak element.
+    - Število korakov je približno $kn$, kjer je $k$ št. korakov za pregled enega elementa.
+- Ali lahko napišemo bistveno hitrejši algoritem?
+    - Ne - pregledati moramo čisto vsak element.
+- Ali lahko napišemo poljubno počasnejši algoritem?
+    - Vedno si lahko "naprtimo" dodatno nepotrebno delo ...
+    
+## Iskanje elementa v urejenem seznamu {.smaller}
+
+- Dan je *urejen* seznam celih števil dolžine $n$. 
+- Ugotavljamo, ali je neko celo število $x$ v njem.
+    - Če je $x$ manjši od prvega elementa, potem ga v seznamu gotovo ni.
+    - Prav tako, če je $x$ večji od končnega elementa.
+    - Sicer, obstaja možnost, da je vmes.
+    - Pogledamo element na polovici in se glede nanj odločimo, v kateri polovici bi lahko bil $x$.
+- Algoritem imenujemo *bisekcija* oz. *binarno iskanje*.
+    
+## Bisekcija
+
+```{python}
+def bisekcija(sez, x):
+    """Vrne True, če se v urejenem seznamu sez nahaja element x.
+    Iskanje poteka z biseksijo."""
+    i = 0                             # levi rob
+    j = len(sez) - 1                  # desni rob
+    if x < sez[i] or x > sez[j]:      # je možno, da je x v seznamu?
+        return False                
+    while i < j:                      # ponavljanje na manjših podseznamih
+        k = (i + j)//2                # srednji element
+        if sez[k] == x:               # smo ga našli?
+            return True
+        elif x < sez[k]:              # x je lahko le levem podseznamu
+            j = k - 1  
+        else:                         # x je lahko le v desnem podseznamu
+            i = k + 1
+    return i == j and sez[i] == x     # Ali je na koncu x najden.
+```
+    
+## Bisekcija {.smaller}
+
+- Koliko računskih korakov opravi program?
+- Nekaj operacij pred zanko (pribl. 10, recimo $a$).
+- V vsakem obhodu zanke naredimo omejeno število računskih korakov (pribl. 20, recimo $b$).
+- Največ koliko krat ponovimo zanko?
+    - Kolikokrat ($k$) lahko sploh razpolovimo seznam?
+    - $\frac{n}{\underbrace{2 \cdot 2 \cdots 2}_{k}} = 1$.
+    - $n = 2^k$, $k = \log_2(n)$.
+- Pri matematični analizi zapis $\log(x)$ predstavlja naravni algoritem od $x$.
+- Pri računalništvu zapis $\log(n)$ predstavlja dvojiški logaritem od $n$.
+- Rabimo torej največ: $a + b\lceil \log(n) \rceil$ korakov.
+- Če je $n = 10^6$ je razlika med algoritmoma za iskanje po seznamih ogromna.
+    
+## Časovna zahtevnost {.smaller}
+
+- Pri analizi učinkovitosti algoritmov nas zanima, koliko korakov rabimo za izvedbo.
+- Število korakov je odvisno:
+    - od velikosti vhodnih podatkov,
+    - od dejanskih podatkov (npr. element najdemo lahko tudi prej).
+- **Najslabša časovna zahtevnost**: 
+    - največje število korakov pri dani velikosti vhodnih podatkov, ne glede na dejanske podatke (zgornja meja),
+    - funkcija $\mathbb{N} \to \mathbb{N}$,
+    - ponavadi želimo najti najmanjšo zgornjo mejo. 
+    - Ko bomo rekli "časovna zahtevnost", bomo tipično imeli v mislih (čim bolj natančno) zgornjo mejo za najslabšo časovno zahtevnost.
+- **Povprečna časovna zahtevnost**:
+    - povprečno število korakov pri dani velikosti podatkov preko vseh možnih vhodnih podatkov velikosti $n$,
+    - je funkcija $\mathbb{N} \to \mathbb{N}$,
+    - ko govorimo o tej časovni zahtevnosti, tipično eksplicitno povemo, da gre za "povprečno časovno zahtevnost".
+    
+## Časovna zahtevnost
+
+- V večini primerov nas ne zanima, da je časovna zahtevnost npr. $3.3n^2 + 10^7n\log n + 231.$
+- Zanima nas red povečevanja (kateri člen prevlada pri velikih $n$).
+- Tudi konstanta pred vodilnim členom nas večinoma ne zanima (računalniki postajajo hitrejši z eksponentno hitrostjo).
+- Za zgornji primer bi npr. radi vedeli da se delo pri algoritmu narašča "nekako" po funkciji $n^2$, ko narašča velikost $n$ vhodnih podatkov.
+
+## Notacija $O(...)$ {.smaller}
+
+- Časovna zahtevnost je funkcija $f: \mathbb{N} \to \mathbb{N}$, kjer privzamemo, da $0 \notin \mathbb{N}$.
+- Definirajmo razrede funkcij, ki naraščajo "ne hitreje kot".
+- Naj bo $f: \mathbb{N} \to \mathbb{N}$ funkcija. Definirajmo razred funkcij: 
+$$O(f(n)) = \{g: \mathbb{N} \to \mathbb{N}~|~\exists n_0 \in \mathbb{N}, c > 0: g(n) \leq c f(n)\text{, za vsak } n \geq n_0 \}.$$
+- Rečemo, da $g(n) = O(f(n))$, če velja $g(n) \in O(f(n))$. 
+- Primer: $3.3n^2 + 10^7n\log n + 231 = O(n^2)$.
+- Primer: $3.3n^2 + 10^7n\log n + 231 = O(n^3)$.
+- Očitno $O(n^2) \subset O(n^3)$.
+- Primer: $f(n) = 10^9n + 10^{100}$, $g(n) = n^2$. 
+    - Za $c = 10^9, n_0 = 10^{100}$ gotovo velja $f(n) \leq cg(n)$. Zato $f(n) = O(g(n))$.
+    - Za karkšen koli $c > 0$, pa vedno obstaja $n_0$, za katerega velja $g(n) > cf(n)$ od $n_0$ dalje. T.j. kakršna koli fiksna kvadratna funkcija pri dovolj velikem $n$ preseže kakršno koli fiksno linearno funkcijo. Zato $g(n) \neq O(f(n))$.
+    
+    
+## Aritmetika z $O(...)$
+
+- Iz definicije lahko dokažemo naslednje:
+    - $O(c) = O(1)$, za $c > 0$. 
+    - $O(cf(n)) = O(f(n))$, za $c > 0$.
+    - $O(f(n)) + O(g(n)) = O(f(n) + g(n))$ - to pomeni, da prevlada večji.
+    - $O(f(n)O(g(n)) = O(f(n)g(n))$.
+- Primeri:
+    - Iskanje elementa v splošnem seznamu: $O(n)$.
+    - Iskanje elementa v urejenem seznamu z bisekcijo: $O(\log n)$.
+
+## Bisekcija - rekurzivno
+
+```{python}
+def bisekcijaR(sez, x):
+    """Vrne True, če se v urejenem seznamu sez nahaja element x.
+    Iskanje poteka z biseksijo."""
+    if len(sez) == 0: return False
+    if len(sez) == 1:
+        return sez == [x]
+    k = len(sez)//2
+    if x < sez[k]:
+        return bisekcijaR(sez[:k], x)
+    else:
+        return bisekcijaR(sez[k:], x)
+```
+- Kakšna je časovna zahtevnost tega algoritma?
+- $O(n)$!?! Zakaj?
+
+## Bisekcija - rekurzivno - popravek {.smaller}
+
+```{python}
+def poisci(sez, x, i=0, j = None):
+    """Vrne True, če se v urejenem seznamu sez nahaja element x.
+Iskanje poteka z biseksijo."""    
+    # None pomeni cel seznam. Stavek 'if' potreben, ker len(sez)
+    # ne moremo podati kot privzeto vrednost.
+    if j == None:   
+        j = len(sez) - 1
+    if i > j: return False
+    if i == j: return x == sez[i]
+    k = (i + j)//2
+    if x <= sez[k]:
+        return poisci(sez, x, i, k)
+    else:
+        return poisci(sez, x, k + 1, j)
+```
+- Opcijske parametre uporabimo za izvedbo rekurzije.
+- `None` smo podali, ker kot privzeto vrednost za parameter ne moremo podati vrednosti funkcije (npr. `len(t)`), ampak le konstantno vrednost. 
+- Potem v kodi preverimo, ali je podana vrednost `None` in ustrezno reagiramo.
+
+## Urejanje z izbiranjem {.smaller}
+
+- Ideja:
+    - Najdimo minimalni element v seznamu. Recimo, da se nahaja na indeksu `i`.
+    - Zamenjamo elementa na indeksih `0` in `i`.
+    - Minimalni element je zdaj na začetku seznama.
+    - Uredimo preostanek seznama (rekurzivno)
+-
+```{python}
+def uredi_izbiranje(sez, z=0):
+        """Uredi seznam sez z 'izbiranjem' (rekurzivno)."""
+            # Vrne indeks, kjer se nahaja minimum v seznamu sez od indeks i dalje.
+        def minind(sez, i):
+            mni = i
+            for j in range(i + 1, len(sez)):
+                if sez[j] < sez[mni]:
+                    mni = j
+            return mni
+        if z == len(sez):                   # zaustavitveni pogoj
+            return
+        k = minind(sez, z)                  # min indeks
+        sez[z], sez[k] = sez[k], sez[z]     # zamenjava
+        uredi_izbiranje(sez, z + 1)         # rekurzivni klic
+```
+    
+## Urejanje z izbiranjem {.smaller}
+
+- Algoritem si lahko tudi drugače predstavljamo:
+    - Na začetku tabele imamo urejeni del tabele, do indeksa `i` oz. eno mesto manj.
+    - Poiščemo minimum neurejenega dela tabele, in ga damo na `i`-to mesto.
+    - Nadaljujemo postopek na `i + 1`-vem mestu.
+-
+```{python}
+def uredi_izbiranje2(sez, z=0):
+        "Uredi seznam sez z 'izbiranjem'."
+        for i in range(len(sez)):
+            mni = i
+            for j in range(i + 1, len(sez)):
+                if sez[j] < sez[mni]:
+                    mni = j
+            sez[mni], sez[i] = sez[i], sez[mni]
+```
+- Po angleško se algoritmu reče *Selection sort*.
+
+## Urejanje z izbiranjem {.smaller}
+
+- Izračunajmo časovno zahtevnost.
+- Iskanje minimuma v tabeli z $n$ elementi: $O(n)$.
+- Zamenjava $O(1)$.
+- Birokracija v obhodu zanke $O(1)$.
+- Torej: $(O(n) + O(1) + O(1)) + (O(n-1) + O(1) + O(1)) + \ldots$
+$\ldots + (O(1) + O(1) + O(1)) =$
+- $= O(n) + O(n-1) + \ldots + O(1)$.
+- $= O(n + (n-1) + \ldots + 1)$
+- $= O(\frac{n(n +1)}{2})$
+- $= O(n^2).$
+
+## Urejanje z vstavljanjem {.smaller}
+
+- Ideja:
+    - V roke jemljemo karte po vrsti in jih urejamo.
+    - Karte, ki jih imamo v roki, so že urejene.
+    - Novo karto vstavimo na pravo mesto.
+-
+```{python}
+def uredi_vstavljanje(sez):
+        """Uredi seznam sez z 'vstavljanjem'."""
+        for i in range(len(sez)):   # začetek neurejenega dela
+            j = i - 1               # sprehod po urejenem delu
+            tmp = sez[i]            # element, ki ga vmeščamo
+            while j >= 0 and sez[j] > tmp:
+                sez[j + 1] = sez[j] # premik strogo večjih elementov
+                j -= 1
+            sez[j + 1] = tmp        # vpisovanje na pravo mesto
+```
+- Časovna zahtevnost: $O(n^2).$
+- Angleško: *Insertion sort*.
+
+## Urejanje z mehurčki {.smaller}
+
+- Ideja:
+    - V enem obhodu po vrsti gledamo zaporedne pare.
+    - Če je par urejen, ga pustimo, če ne ga zamenjamo. 
+    - Pomaknemo se na naslednji par.
+    - Po enem obhodu priplava maksimalni element na konec.
+    - Naslednji obhod, ne gre do konca, ampak le do enega indeksa manj kot prejšnji.
+    - Če v nekem obhodu ne naredimo nobene zamenjave, je seznam urejen.
+- 
+```{python}
+def uredi_mehurcki(sez):
+        "Urejanje z algoritmom 'bubble sort'."
+        for k in range(len(sez) - 1, 0, -1):  # končni indeks i-tega obhoda
+            zamenjava = False         # ali je prišlo do zamenjave?
+            for j in range(k):        # obhod: od začetka do k
+                if sez[j] > sez[j + 1]:
+                    sez[j], sez[j + 1] = sez[j + 1], sez[j]
+                    zamenjava = True
+            if not zamenjava:         # konec če ni zamenjave v obhodu
+                break
+```
+- Časovna zahtevnost: $O(n^2)$. Angleško: *Bubble sort*.
+
+## Urejanje z zlivanjem {.smaller}
+
+- Ideja:
+    - Razdelimo seznam na pol.
+    - Rekurzivno predamo v ureditev vsako polovico.
+    - Potem ko sta polovici urejeni, ju zlijemo: jemljemo trenutno najmanjši element iz začetkov polovic in jih prepisujemo v nov urejen seznam.
+- Zlivanje dveh tabel:
+- 
+```{python}
+def zlij(sez1, sez2):
+        """Zlije dva urejena seznama v urejen seznam in ga vrne."""
+        s1 = 0    # števca prvega elementa po dveh tabelah
+        s2 = 0
+        sez = []    # nova tabela
+        for i in range(len(sez1) + len(sez2)):
+            if s1 >= len(sez1):
+                sez.append(sez2[s2]); s2 += 1
+            elif s2 >= len(sez2):
+                sez.append(sez1[s1]); s1 += 1
+            elif sez1[s1] < sez2[s2]:
+                sez.append(sez1[s1]); s1 += 1
+            else:
+                sez.append(sez2[s2]); s2 += 1
+        return sez
+```
+
+## Urejanje z zlivanjem
+
+```{python}
+def uredi_zlivanje(sez):
+        def urediR(i, j):
+               # vrne urejen seznam, za podseznam sez[i:j]
+            if (j - i) <= 1:
+                return sez[i:j]
+            k = (i + j)//2
+            sez1 = urediR(i, k)
+            sez2 = urediR(k, j)
+            return zlij(sez1, sez2)
+        nov = urediR(0, len(sez))
+        sez.clear()
+        sez += nov
+```
+- Angleško: *Merge sort*.
+
+## Urejanje z zlivanjem {.smaller}
+
+- Naj $T(n)$ predstavlja časovno zahtevnost urejanja seznama velikosti $n$ z zlivanjem.
+- Velja: $T(n) = 2T(n/2) + O(n)$.
+- Velja tudi: Tabelo dolžine 1 uredimo v $O(1)$.
+- Izračunajmo:
+-
+$$T(n) = 2T(n/2) + O(n) = 2(2T(n/4) + O(n/2)) + O(n) = \ldots$$
+-
+$$= 4T(n/4) + 2(O(n/2)) + O(n) = 4T(n/4) + 2O(n)$$
+-
+$$\ldots = 2^kT(n/2^k) + kO(n)$$
+- Pri $2^k = n$, oz. $k = \log n$ velja, da je $T(n/2^k) = O(1)$.
+- Časovna zahtevnost: $2^kO(1) + kO(n) = nO(1) + \log n\cdot O(n) = O(n\log n)$.
+- OPOMBA: V resnici bi morali biti natančnejši. Izračun namreč velja, če je $n = 2^k$ in je $k$ celo število. Za $n = 2^k$, kjer $k$ ni celo število, velja, da je ocena časovne zahtevnosti med $O(2^{\lfloor k\rfloor} \lfloor k \rfloor)$ in $O(2^{\lceil k\rceil} \lceil k \rceil) \leq O(2n\log(2n)) = O(n\log n)$.
+
+## Hitro urejanje - Quicksort {.smaller}
+
+- Ideja:
+    - Vzamemo prvi element in ga postavimo na pravo mesto v ureditvi, tako da so levo od njega manjši ali enaki elementi, desno od njega pa samo večji. Element, ki ga postavimo na pravo mesto imenujemo *pivot*.
+    - Potem razdelimo tabelo na dve podtabeli, levo od pivot in desno od pivota, ter postopek rekurzivno ponovimo.
+- Prvi korak lahko izvedemo v $O(n)$. Kako?
+    - Gremo čez seznam in manjše oz. enake mečemo v ene seznam, večje pa v drugi.
+- Lahko imamo nesrečo: seznam je že urejen. Potem je časovna zahtevnost $O(n^2)$.
+- Quicksort lahko implementiramo brez dodatnih tabel. 
+- Povprečna časovna zahtevnost je $O(n\log n)$, in sicer s pol manjšo konstanto kot pri urejanju z zlivanjem.
+
+## Quicksort {.smaller}
+
+```{python}
+def uredi(sez):
+    "Urejanje po algoritmu 'quicksort'."
+    def urediR(sez, i, j):
+        if j - i == 2:  # samo dva elementa v seznamu
+            if sez[i] > sez[j-1]:
+                sez[i], sez[j-1] = sez[j-1], sez[i]
+            return
+        if j - i <= 1:  # samo en element v seznamu
+            return
+        k = pivot(sez, i, j)
+        urediR(sez, i, k)
+        urediR(sez, k + 1, j)
+
+    def pivot(sez, i, j):
+        z = i + 1
+        k = j - 1
+        while z < k:
+            while z < k and sez[z] <= sez[i]: z += 1
+            while sez[k] > sez[i]: k -= 1
+            if z < k: (sez[z], sez[k]) = (sez[k], sez[z])
+        sez[i], sez[k] = sez[k], sez[i]  # pivot na pravo mesto
+        return k
+                
+    urediR(sez, 0, len(sez))
+```
+
+## Urejanje v praksi {.smaller}
+
+- Seznami imajo metodo `sort()`
+```{python}
+>>> sez = [2, 3, 1, 4, 2, 5, 7, 3, 2]
+>>> sez.sort()
+>>> print(sez)
+[1, 2, 2, 2, 3, 3, 4, 5, 7]
+```
+- Imamo tudi funkcijo `sorted()`, ki nad seznamom naredi iterabilni objekt po urejenostnem zaporedju.
+```{python}
+>>> sez = [2, 3, 1, 4, 2, 5, 7, 3, 2]
+>>> [i for i in sorted(sez)]
+[1, 2, 2, 2, 3, 3, 4, 5, 7]
+>>> print(sez)
+[2, 3, 1, 4, 2, 5, 7, 3, 2]
+```
+- Kakšna je razlika med $O(n^2)$ in $O(n\log n)$ pri $n = 10^6$?
+
+## Fibonaccijevo zaporedje in časovna zahtevnost {.smaller}
+
+- Fibonaccijevo zaporedje: $a_0 = 1$, $a_1 = 1$, $a_n = a_{n-1} + a_{n-2}$.
+- Rekurzivna funkcija:
+-
+```{python}
+def fib(n):
+        if n <= 1:
+            return 1
+        return fib(n-1) + fib(n-2)
+```
+- Funkcija z zanko:
+-
+```{python}
+def fib2(n):
+        if n <= 1:
+            return 1
+        an = 1
+        an1 = 1
+        for i in range(2, n + 1):
+            an, an1 = an + an1, an
+        return an
+```
+- Kakšni sta časovni zahtevnosti obeh implementacij?
