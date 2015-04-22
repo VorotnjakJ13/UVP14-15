@@ -260,6 +260,17 @@ False
 
 ## Primer: preštevanje pojavitev znakov
 
+```python
+def prestej_pojavitve(niz):
+    pojavitve = {}
+    for znak in niz:
+        if znak in pojavitve:
+            pojavitve[znak] += 1
+        else:
+            pojavitve[znak] = 1
+    return pojavitve
+```
+
 ---
 
 ## Zanka `for`
@@ -339,6 +350,22 @@ b 2
 
 
 ## Primer: iskanje ključa z največjo vrednostjo
+
+```python
+def najvecja_vrednost(s):
+    # Ideja je podobna kot pri seznamih: po vrsti gledamo vse pare ključev in
+    # vrednosti v slovarju - vsakič, ko vidimo še večjo vrednost, si zapomnimo
+    # njen ključ.
+
+    # Ker slovarji niso urejeni po vrsti, ne moremo začeti s prvim elementom.
+    # Lahko pa si pomagamo z metodo popitem(), ki iz slovarja odstrani naključen
+    # ključ in njegovo vrednost.
+    max_k, max_v = s.popitem()
+    for k, v in s.items():
+        if v > max_v:
+            max_k, max_v = k, v
+    return max_k, max_v
+```
 
 ---
 
@@ -510,6 +537,26 @@ def direktna_slika(f, a):
 
 
 ## Primer: družabno omrežje
+
+```python
+{
+    'Borut': {'Janez', 'Miro', 'Karl'},
+    'Janez': {'Borut', 'Karl'},
+    'Miro': {'Borut', 'Karl'},
+    'Karl': {'Borut', 'Janez', 'Miro'},
+    'Igor': set(),
+}
+```
+
+```python
+def priporoci_prijatelje(omrezje, oseba):
+    novi_prijatelji = set()
+    for prijatelj in omrezje[oseba]:
+        for prijatelj_prijatelja in omrezje[prijatelj]:
+            novi_prijatelji.add(prijatelj_prijatelja)
+    return novi_prijatelji - {oseba} - omrezje[oseba]
+
+```
 
 ---
 
