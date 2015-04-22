@@ -281,7 +281,7 @@ def prestej_pojavitve(niz):
 
 ```python
 s = {'a': 6, 'b': 2, 'c': 3}
-*for k in s.keys():
+for k in s.keys():
     print(k)
 ```
 
@@ -297,7 +297,7 @@ c
 
 ```python
 s = {'a': 6, 'b': 2, 'c': 3}
-*for k in s:
+for k in s:
     print(k)
 ```
 
@@ -312,7 +312,7 @@ c
 
 ```python
 s = {'a': 6, 'b': 2, 'c': 3}
-*for v in s.values():
+for v in s.values():
     print(v)
 ```
 
@@ -328,7 +328,7 @@ s = {'a': 6, 'b': 2, 'c': 3}
 
 ```python
 s = {'a': 6, 'b': 2, 'c': 3}
-*for k, v in s.items():
+for k, v in s.items():
     print(k, v)
 ```
 
