@@ -1,0 +1,114 @@
+- pregovori
+* pregovori/O sreči.txt
+Prava sreča se le enkrat ponuja.
+
+Srečen je kdor zna živeti z majhnimi željami.
+
+Sreča je opoteča.
+
+Srečen si, ko verjameš v srečo.
+
+Srečen si, če si ne želiš, česar ne moreš imeti.
+
+Sreča človeka sreča, ujeti se ne da.
+
+Srečnejši je tisti, ki daje, kakor oni, ki jemlje.
+
+Ni srečen, kdor veliko ima; srečen je, kdor malo potrebuje. 
+* pregovori/O času.txt
+Čas je zlato.
+
+Čas zaceli vse rane.
+
+Hiti počasi.
+
+Čas vse dozori.
+
+Ura zamujena ne vrne se nobena.
+
+S časom se celo čas obrne.
+
+Kdor zgodaj vstaja, mu časa preostaja. Rana ura, zlata ura.
+
+Kdor čas svoj prav obrne, se s čednostjo ogrne.
+
+Nobena pesem ni tako dolga, da se ne bi izpela. 
+- poezija
+- poezija/soneti
+* poezija/soneti/sonetni venec.txt
+Poet tvoj nov Slovencem venec vije,
+'z petnajst sonetov ti tako ga spleta,
+da magistrále, pesem trikrat peta,
+vseh drugih skupaj veže harmoníje.
+
+Iz njega izvira, vanjga se spet zlije
+po vrsti pesem vsacega soneta;
+prihodnja v prednje koncu je začeta;
+enak je pevec vencu poezije:
+
+Vse misli zvirajo 'z ljubezni ene
+in kjer ponoči v spanju so zastale,
+zbudé se, ko spet zarja noč prežene.
+
+Ti si življenja moj'ga magistrále,
+glasil se 'z njega, ko ne bo več mene,
+ran mojih bo spomin in tvoje hvale.
+- poezija/razno
+* poezija/razno/Slovo od mladosti.txt
+SLOVO OD MLADOSTI 	 
+
+Dni mojih lepši polovica kmalo,
+mladosti leta! kmalo ste minule;
+rodile vé ste meni cvetja malo,
+še tega rožce so se koj osule,
+le redko upa sonce je sijalo,
+viharjov jeze so pogosto rjule;
+mladost! vender po tvoji temni zarji
+srce bridkó zdihuje, Bog te obvarji!
+
+Okusil zgodej sem tvoj sad, spoznanje!
+Veselja dókaj strup njegov je umoril:
+sem zvedel, de vest čisto, dobro djanje
+svet zaničvati se je zagovoril,
+ljubezen zvésto najti, kratke sanje!
+zbežale ste, ko se je dan zazóril.
+Modrost, pravičnost, učenost, device
+brez dot žalváti videl sem samice.
+
+Sem videl, de svoj čoln po sapi sreče,
+komur sovražna je, zastonj obrača,
+kak veter nje nasproti tému vleče,
+kogar v zibéli vid'la je berača,
+de le petica da ime sloveče,
+de človek toliko velja, kar plača.
+Sem videl čislati le to med nami,
+kar um slepí, z goljfijami, ležámi! 
+* poezija/razno/glosa.txt
+GLOSA
+
+"Slep je, kdor se s petjam vkvarja,
+Kranjec moj mu osle kaže;
+pevcu vedno sreča laže,
+on živi, umrje brez dnarja."
+
+Le začniva pri Homeri,
+prosil reva dni je stare;
+mraz Ovidja v Pontu tare;
+drugih pevcov zgodbe beri:
+nam spričuje Alighieri,
+káko sreča pevce udarja;
+nam spričujeta pisarja
+Luzijade, Don Kihota,
+kákošne Parnasa pota -
+slep je, kdor se s petjam vkvarja.
+
+Káj Petrarkov, káj nam Tasov
+treba pevcov je prijetnih?
+slišim od butic neukretnih
+prašat zdanjih, prednjih časov.
+Kómur mar prijetnih glasov
+pesem, ki pojó Matjaže,
+boje krog hrvaške straže,
+mar, kar pevec pel Ilirje,
+mar Čebel'ce roji štirje,
+Kranjec moj mu osle kaže.

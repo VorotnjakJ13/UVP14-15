@@ -1,0 +1,231 @@
+---
+title: "Datoteke"
+output: 
+  ioslides_presentation:
+    incremental: yes
+---
+
+## Datotečni sistem 
+
+- Spominski prostor na enotah trajnega spomina je organiziran v obliki datotečnega sistema.
+- Datotečni sistem: mape in datoteke.
+- Vsaka mapa, datoteka ima svoje atribute.
+- V mapah so lahko nove mape ali datoteke.
+- Diski imajo particije, na particiji postavimo datotečni sistem.
+- Znani datotečni sistemi: NTFS (Windows), Ext4 (Linux), FAT (USB ključi), CDFS (CD/DVD), HFS (Mac OS). 
+
+## Pot
+
+- Vsaka datoteka ali mapa se nahaja na neki *poti* (ang. path). Npr.
+    - `c:\Users\janez\projekt.docx`   (absolutna pot na NTFS)
+    - `/home/janez/projekt.docx`    (absolutna pot na Ext4, HFS)
+- Absolutna pot: opis poti od korena.
+- Relativna pot: nahajamo se v neki mapi in glede na ta položaj opišemo pot do druge mape oz. datoteke. Npr. nahajmo se v `c:\Users\janez`:
+    - `.`  - trenutna mapa
+    - `..` - ena mapa gor
+    - `..\ana\anin_projekt.docx` - relativna pot (ne začne s korenom)
+
+## Datoteke v Pythonu {.smaller}
+
+- Zaporedja podatkov v trajnem spominu.
+- Tipi datotek:
+    - tekstovne (tekst, CSV, XML, json, HTML, ...),
+    - binarne (npr. .exe).
+- Kodne tabele:
+    - Znakom priredimo številsko kodo (da jih lahko shranimo v pomnilnik).
+    - ASCII - 7-bitne kode, angleška abeceda (ena črka = 1Byte).
+    -
+```{python}
+>>> ord("A")
+65
+>>> ord("B")
+66
+>>> ord("1")
+49
+>>> ord("2")
+50
+```
+- Večinoma uporabljamo kodni tabeli `cp1250` (dediščina Windows & MS) ter, če se le da `utf8`.
+- UTF8 - kodna tabela, v kateri so zapisi znakov dolgi od 1-4 Byte. Na ASCII znakih imamo ujemanje.
+
+## Branje tekstovnih datotek
+
+-
+```{python}
+def beri(ime, encoding="utf8"):
+        with open(ime, encoding=encoding) as f:
+            for vrstica in f:
+                print(vrstica)
+```
+- `open()` vrne iterabilni objekt, ki predstavlja datoteko s kazalcem na trenutni položaj.
+- `with` stavek poskrbi, da datoteko tudi zapremo (na koncu avtomatično kliče `f.close()`)
+- Tekstovne datoteke ne vedo, v kakšni kodni tabeli so napisane. 
+- Če podamo napačno kodno tabelo se podatki bodisi narobe preberejo ali pa pride do napake.
+
+## Pisanje v datoteko
+
+- Pisanje v datoteko:
+```{python}
+def pisi(ime, vsebina, encoding="utf8"):
+        with open(ime, "wt", encoding=encoding) as f:
+            f.write(vsebina)
+```
+- Z drugim parametrom povemo, na kak način odpremo datototeko:
+    - `t` - tekstovna datoteka.
+    - `w` - odpiranje v načinu za branje.
+- Navadno odpiranje z `open()` je ekvivalentno načinu `"rt"`.
+
+## Operacije na datotečnem sistemu {.smaller}
+
+- Operacije na datotečnem sistemu izvajamo preko modula `os`.
+```{python}
+import os
+```
+- Delovna mapa modula idle:
+```{python}
+>>> os.getcwd()
+>>> os.getcwd()
+'/repozitoriji/UVP14-15/08_Datoteke in splet/viri'
+```
+- Alternativno:
+-
+```{python}
+>>> os.path.abspath(".")
+```
+- Spremeni delovno mapo:
+- 
+```{python}
+>>> os.chdir("/repozitoriji/UVP14-15")
+```
+- Lahko vpišemo absolutno ali relativno pot glede na delovno mapo.
+
+## Generiranje datotek in map - primer
+
+- Datoteko generiramo tako, da jo zapišemo.
+- Ustvarjanje mape:
+```{python}
+>>> os.mkdir("nova_mapa")
+```
+- Primer:
+    - Dana tekstovna datoteka `mape_in_datoteke.txt`.
+    - V vrsticah, ki se začnejo na `-` povemo, katero mapo želimo ustvariti.
+    - V vrsticah, ki se začnejo z `*` povemo, katero datoteko želimo ustvariti. 
+    - Ostale vrstice predstavljajo vsebino datoteke, ki smo jo ravno ustvarili.
+    - Sprehodimo se po vrsticah in ustvarimo ustrezno strukturo map in datotek.
+    
+## Delo z imeni datotek in map {.smaller}
+
+- Sestavljanje poti.
+```{python}
+os.path.join(pot, ime_datoteke)
+```
+- Preverjanje tipa objekta datotečnega sistema.
+```{python}
+os.path.isfile(pot)
+os.path_isdir(pot)
+os.path_islink(pot)
+```
+- Pridobivanje mape in imena datoteke.
+```{python}
+mapa, ime = os.path.split(pot)
+```
+- Velikost datoteke.
+```{python}
+velikost = os.path.getsize(pot)
+```
+- Končnica.
+```{python}
+_, koncnica = os.path.splitext(pot)
+```
+   
+## Delo z datotekami
+
+- Brisanje datotek, map
+```{python}
+os.remove(pot)      # brisanje datoteke
+os.rmdir(pot)       # brisanje prazne mape
+os.removedirs(pot)  # brisanje celotnega drevesa map in datotek
+```
+- Preimenovanje datotek in map
+```{python}
+os.rename(pot_izvor, pot_cilj)
+```
+## Modul `shutil`
+
+- Kopiranje
+```{python}
+shutil.copy(izvor, cilj)    # kopiranje datotek v mape oz. datoteke
+shutil.copy2(izvor, cilj)   # podobno, ohranja metapodatke
+shutil.copytree(izvor, cilj)  # kopiranje celotnih dreves
+```
+- Brisanje dreves
+```{python}
+shutil.rmtree(pot)
+```
+- Premikanje
+```{python}
+shutil.move(izvor, cilj)
+```
+
+## Uporabne metode nad nizi
+
+- `s.count(t)` ... vrne število, kolikokrat se niz `t` pojavi kot podniz (brez prekrivanj) v nizu `s`.
+- `s.count(t, i)` ... podobno kot prej, le da začne šteti pri indeksu `i`.
+- `s.count(t, i, j)` ... podobno kot prej, le da konča šteti pri indeksu `j`.
+- `s.find(t)` ... vrne najmanjši indeks v nizu `s`, kjer se niz `t` pojavi kot podniz (vrne -1, če ga ne najde).
+- `s.find(t, i)` ... podobno kot prej, le da začne iskati pri indeksu `i`.
+- `s.find(t, i, j)` ... podobno kot prej, le da konča z iskanjem pri indeksu `j`.
+- `s.index(...)` ... podobno kot `s.find(...)`, le da javi napako, če podniza ne najde
+
+## Uporabne metode nad nizi {.smaller}
+
+- `s.join(sez)` ... vrne niz, ki je sestavljen iz nizov iz seznama sez. Kot ločilo med vrednostmi uporabi niz `s`.
+- `s.replace(t1, t2)` ... vrne kopijo niza `s`, kjer vse pojavitve podniza `t1` zamenja s podnizi `t2`.
+- `s.replace(t1, t2, n)` ... podobno kot prej, le da zamenja samo prvih `n` pojavitev podniza `t1`.
+- `s.strip()` ... vrne kopijo niza `s`, kjer so na začetku in na koncu odstranjeni vsi beli znaki.
+- `s.strip(t)` ... vrne kopijo niza `s`, kjer so na začetku in na koncu odstranjeni vsi znaki iz niza `t`.
+- `s.format(...)` ... vrne kopijo niza `s`, preoblikovanega v skladu z zahtevami.
+- `s.lower()` ... vrne kopijo niza `s`, kjer so vse črke predelane v male črke.
+- `s.upper()` ... vrne kopijo niza `s`, kjer so vse črke predelane v velike črke.
+- `s.title()` ... vrne kopijo niza `s`, kjer se vse besede pričnejo z veliko začetnico, nadaljujejo pa z malimi črkami.
+- `s.capitalize()` ... vrne kopijo niza `s`, kjer je prvi znak predelan v veliko črko.
+- `s.swapcase()` ... vrne kopijo niza `s`, kjer so vse male črke predelane v velike in obratno.
+
+## Uporabne metode nad nizi {.smaller}
+
+- `s.ljust(n)` ... vrne kopijo niza s zapisano levo poravnano v nizu dolžine `n`.
+- `s.ljust(n, znak)` ... podobno kot prej, le da dodatne presledke na koncu nadomesti z danim znakom.
+- `s.rjust(n)` ... vrne kopijo niza s zapisano desno poravnano v nizu dolžine `n`.
+- `s.rjust(n, znak)` ... podobno kot prej, le da dodatne presledke na začetku nadomesti z danim znakom.
+- `s.center(n)` ... vrne kopijo niza s zapisano sredinsko poravnano v nizu dolžine `n`.
+- `s.center(n, znak)` ... podobno kot prej, le da dodatne presledke na začetku in koncu nadomesti z danim znakom.
+
+## Uporabne metode nad nizi 
+
+
+- `s.split()` ... vrne seznam besed v nizu `s` (besede so ločene z enim ali več belimi znaki).
+- `s.split(None, n)` ... vrne seznam prvih `n` besed v nizu `s`, skupaj z nizom, ki vsebuje vse ostale besede.
+- `s.split(t)` ... vrne seznam besed v nizu s (pri tem so besede ločene s podnizom t).
+- `s.split(t, n)` ... vrne seznam prvih `n` besed v nizu `s`, skupaj z nizom, ki vsebuje vse ostale besede (pri tem so besede ločene s podnizom `t`).
+
+## Uporabne metode nad nizi {.smaller}
+
+- `s.isdigit()` ... vrne `True`, če niz `s` vsebuje vsaj en znak in so vsi znaki števke.
+- `s.isalpha()` ... vrne `True`, če niz `s` vsebuje vsaj en znak in so vsi znaki črke.
+- `s.islower()` ... vrne `True`, če niz `s` vsebuje vsaj en znak in so vsi znaki male črke.
+- `s.isupper()` ... vrne `True`, če niz `s` vsebuje vsaj en znak in so vsi znaki velike črke.
+- `s.isalnum()` ... vrne `True`, če niz `s` vsebuje vsaj en znak in so vsi znaki alfanumerični (črke ali števke).
+- `s.isspace()` ... vrne `True`, če niz s vsebuje vsaj en znak in so vsi znaki beli (presledki, tabulatorji, nove vrste).
+
+## CSV
+
+- Format datotek CSV (Comma Separated Values) je pogost tekstovni format za tabelarične podatke
+- Obstaja več variant.
+- Mi uporabljamo:
+    - decimalno ločilo: `,`
+    - ločevanje vrstic: skok v novo vrstico, `\n`
+    - ločevanje stolpcev: `;`
+    - dobesedni navedki nizov: `"`
+- Primer: 
+http://www.stat.si/StatWeb/pregled-podrocja?id=111&headerbar=7
+- Preberimo datoteko, izračunajmo deleže in zapišimo nazaj.
