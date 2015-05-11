@@ -72,7 +72,7 @@ def pisi(ime, vsebina, encoding="utf8"):
 ```
 - Z drugim parametrom povemo, na kak način odpremo datototeko:
     - `t` - tekstovna datoteka.
-    - `w` - odpiranje v načinu za branje.
+    - `w` - odpiranje v načinu za pisanje.
 - Navadno odpiranje z `open()` je ekvivalentno načinu `"rt"`.
 
 ## Operacije na datotečnem sistemu {.smaller}
