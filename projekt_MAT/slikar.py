@@ -9,7 +9,7 @@ OVAL_RISEM = 2
 class Slikar():
     def __init__(self, master):
 
-        self.stanje = NEVTRALNO
+        self.stanje = NEVTRALNO 
         self.tocka = None
         self.trenutni = None
         # Glavni menu
