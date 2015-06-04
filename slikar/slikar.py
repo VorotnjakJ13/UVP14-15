@@ -255,7 +255,6 @@ razveljavi s funkcijo razveljavi_oznacitev()."""
             pos = v.find("(")
             glava = v[:pos].strip()
             vrednosti = v[pos:].strip().strip("()").split(",")
-            print(vrednosti)
             coords = [int(i) for i in vrednosti if "=" not in i]
             params = dict([[j.strip().strip('"') for j in i.split("=")] for i in vrednosti if "=" in i ])
             return glava, coords, params
